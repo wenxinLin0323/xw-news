@@ -1,5 +1,8 @@
 <template>
-  <div>我是根组件</div>
+  <!-- 指定路由出口 -->
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
