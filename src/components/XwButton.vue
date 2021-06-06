@@ -1,11 +1,17 @@
 <template>
-  <div class="xw-button">
+  <div class="xw-button" @click="clickFn">
     <slot></slot>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    clickFn() {
+      this.$emit('click')
+    },
+  },
+}
 </script>
 
 <style class="lang" scoped>
