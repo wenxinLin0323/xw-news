@@ -11,8 +11,8 @@ export default {
   methods: {
     register() {
       console.log('注册成功')
-    },
-  },
+    }
+  }
 }
 </script>
 

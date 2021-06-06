@@ -38,21 +38,21 @@ export default {
       // e.target能够获取到触发事件的元素
       let value = e.target.value
       this.$emit('input', value)
-
+      this.validate(value)
       // 添加表单校验
+
+      // console.log(this.status)
+    },
+    validate(value) {
       if (this.rule) {
         // 判断value的值是否符合传入的正则
         if (this.rule.test(value)) {
           this.status = 'success'
+          return true
         } else {
           this.status = 'error'
+          return false
         }
-        // console.log(this.status)
-      }
-
-      // 判断input框值是否为空，为空清除样式
-      if (value === '') {
-        e.target.class === ''
       }
     }
   }

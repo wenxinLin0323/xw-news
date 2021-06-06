@@ -9,6 +9,7 @@
       v-model="username"
       :rule="/^1\d{4,10}$/"
       message="用户名错误"
+      ref="username"
     ></xw-input>
 
     <xw-input
@@ -17,6 +18,7 @@
       v-model="password"
       :rule="/^\d{3,12}$/"
       message="密码错误"
+      ref="password"
     ></xw-input>
 
     <xw-button @click="login">登录</xw-button>
@@ -28,7 +30,17 @@
 export default {
   methods: {
     login() {
-      console.log('登陆成功')
+      // 发请求前先进行校验，校验失败就不发请求
+      const result1 = this.$refs.username.validate(this.username)
+      const result2 = this.$refs.password.validate(this.password)
+      // console.log(result1, result2)
+      if (result1 && result2 == false) {
+        return
+      }
+      // if (!result1 || !result2) {
+      //   return
+      // }
+      // console.log('登陆成功')
       this.$axios({
         method: 'POST',
         url: '/login',
@@ -39,10 +51,8 @@ export default {
       }).then(res => {
         console.log(res.data)
         if (res.data.statusCode === 200) {
-          alert('登录成功')
+          this.$toast.success('登陆成功')
           this.$router.push('/user')
-        } else {
-          alert('账号名或密码错误')
         }
       })
     }

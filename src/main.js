@@ -6,8 +6,7 @@ import './styles/common.less'
 import './styles/iconfont.less'
 // 导入lib-flexible模块,会自动适配所有的屏幕
 import 'lib-flexible'
-// 导入axios
-import axios from 'axios'
+
 // 导入路由对象
 import router from './router'
 
@@ -17,9 +16,17 @@ import XwLogo from './components/XwLogo.vue'
 import XwButton from './components/XwButton.vue'
 import XwInput from './components/XwInput.vue'
 
+// ----------------------导入axios------------------
+import axios from 'axios'
+// 给vue原型对象上添加axios
 Vue.prototype.$axios = axios
-
+// 给axios添加默认地址
 axios.defaults.baseURL = 'http://localhost:3000'
+
+// ----------------------导入vant-ui----------------
+import { Toast } from 'vant'
+
+Vue.use(Toast)
 
 Vue.component('xw-header', XwHeader)
 Vue.component('xw-logo', XwLogo)
