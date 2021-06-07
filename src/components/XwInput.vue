@@ -61,7 +61,7 @@ export default {
 
 <style lang="less" scoped>
 .hm-input {
-  height: 50px;
+  height: 40px;
   margin: 20px;
   input {
     width: 100%;
