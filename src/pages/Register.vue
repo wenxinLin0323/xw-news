@@ -12,7 +12,7 @@
     <xw-input
       placeholder="昵称"
       v-model="nickname"
-      :rule="/^[\u4e00-\u9fa5]{3,7}$/"
+      :rule="/^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,6}$/"
       message="昵称错误"
       ref="nickname"
     ></xw-input>
@@ -55,7 +55,7 @@ export default {
           password: this.password
         }
       }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.statusCode === 200) {
           this.$toast.success('注册成功')
           this.$router.push({
