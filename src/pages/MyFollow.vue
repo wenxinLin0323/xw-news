@@ -31,40 +31,36 @@ export default {
   },
   methods: {
     // 获取关注列表
-    getFollowlist() {
+    async getFollowlist() {
       const user_id = localStorage.getItem('user_id')
-      this.$axios({
+      const res = await this.$axios({
         method: 'get',
         url: '/user_follows/'
-      }).then(res => {
-        // console.log(res)
-        const { statusCode, data } = res.data
-        if (statusCode === 200) {
-          this.list = data
-        }
       })
+      // console.log(res)
+      const { statusCode, data } = res.data
+      if (statusCode === 200) {
+        this.list = data
+      }
     },
     // 取消关注
-    unFollow(id) {
-      this.$dialog
-        .confirm({
+    async unFollow(id) {
+      try {
+        await this.$dialog.confirm({
           title: '温馨提示',
           message: '确定取消关注吗'
         })
-        .then(() => {
-          this.$axios({
-            method: 'get',
-            url: `/user_unfollow/${id}`
-          }).then(res => {
-            // console.log(res)
-            const { statusCode, message } = res.data
-            if (statusCode === 200) {
-              this.$toast.success(message)
-              this.getFollowlist()
-            }
-          })
+        const res = await this.$axios({
+          method: 'get',
+          url: `/user_unfollow/${id}`
         })
-        .catch(() => {})
+        // console.log(res)
+        const { statusCode, message } = res.data
+        if (statusCode === 200) {
+          this.$toast.success(message)
+          this.getFollowlist()
+        }
+      } catch {}
     }
   }
 }

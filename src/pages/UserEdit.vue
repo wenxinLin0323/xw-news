@@ -112,45 +112,43 @@ export default {
 
   methods: {
     // 发送请求获取用户信息
-    getInfo() {
+    async getInfo() {
       const user_id = localStorage.getItem('user_id')
       // const token = localStorage.getItem('token')
-      this.$axios({
+      const res = await this.$axios({
         method: 'get',
         url: `/user/${user_id}`
         // headers: {
         //   Authorization: token
         // }
-      }).then(res => {
-        // console.log(res)
-        const { statusCode, data } = res.data
-        if (statusCode === 200) {
-          this.info = data
-          // console.log(this.info)
-        }
       })
+      // console.log(res)
+      const { statusCode, data } = res.data
+      if (statusCode === 200) {
+        this.info = data
+        // console.log(this.info)
+      }
     },
 
     // 封装修改用户信息请求
-    editUser(data) {
+    async editUser(data) {
       const user_id = localStorage.getItem('user_id')
       // const token = localStorage.getItem('token')
-      this.$axios({
+      const res = await this.$axios({
         method: 'post',
         url: `/user_update/${user_id}`,
         // headers: {
         //   Authorization: token
         // },
         data
-      }).then(res => {
-        // console.log(res)
-        const { statusCode, message } = res.data
-        if (statusCode === 200) {
-          // 重新渲染
-          this.getInfo()
-          this.$toast.success(message)
-        }
       })
+      // console.log(res)
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        // 重新渲染
+        this.getInfo()
+        this.$toast.success(message)
+      }
     },
 
     // 显示昵称修改框
@@ -235,7 +233,7 @@ export default {
     // 点击裁剪发送请求修改头像
     crop() {
       // 获取截图的blob数据
-      this.$refs.cropper.getCropBlob(data => {
+      this.$refs.cropper.getCropBlob(async data => {
         // do something
         // console.log(data)
         // 此时可以自行将文件上传至服务器
@@ -243,26 +241,25 @@ export default {
         const fd = new FormData()
         fd.append('file', data)
         // console.log(file)
-        this.$axios({
+        const res = await this.$axios({
           method: 'post',
           url: '/upload',
           data: fd
           // headers: {
           //   Authorization: localStorage.getItem('token')
           // }
-        }).then(res => {
-          // console.log(res)
-          const { statusCode, data } = res.data
-          if (statusCode === 200) {
-            // 隐藏裁剪框
-            this.showCropper = false
-            // console.log(data)
-            // this.img = ''
-            this.editUser({
-              head_img: data.url
-            })
-          }
         })
+        // console.log(res)
+        const { statusCode, data: data1 } = res.data
+        if (statusCode === 200) {
+          // 隐藏裁剪框
+          this.showCropper = false
+          // console.log(data)
+          // this.img = ''
+          this.editUser({
+            head_img: data1.url
+          })
+        }
       })
     }
     // 上传图片前可以校验图片大小和格式
@@ -285,7 +282,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .headPortrait {
   position: relative;
   img {

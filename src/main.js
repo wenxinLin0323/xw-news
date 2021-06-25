@@ -34,7 +34,8 @@ import {
   Cell,
   CellGroup,
   Uploader,
-  Form
+  Form,
+  List
 } from 'vant'
 
 Vue.use(Toast)
@@ -47,6 +48,7 @@ Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Uploader)
 Vue.use(Form)
+Vue.use(List)
 
 // ----------------------导入axios------------------
 import axios from 'axios'

@@ -33,7 +33,7 @@
 <script>
 export default {
   methods: {
-    register() {
+    async register() {
       // 发请求前先进行校验，校验失败就不发请求
       const result1 = this.$refs.username.validate(this.username)
       const result2 = this.$refs.nickname.validate(this.nickname)
@@ -46,7 +46,7 @@ export default {
       //   return
       // }
       // console.log('登陆成功')
-      this.$axios({
+      const res = await this.$axios({
         method: 'POST',
         url: '/register',
         data: {
@@ -54,16 +54,15 @@ export default {
           nickname: this.nickname,
           password: this.password
         }
-      }).then(res => {
-        // console.log(res.data)
-        if (res.data.statusCode === 200) {
-          this.$toast.success('注册成功')
-          this.$router.push({
-            name: 'login',
-            params: { username: this.username, password: this.password }
-          })
-        }
       })
+      // console.log(res.data)
+      if (res.data.statusCode === 200) {
+        this.$toast.success('注册成功')
+        this.$router.push({
+          name: 'login',
+          params: { username: this.username, password: this.password }
+        })
+      }
     }
   },
   data() {
@@ -76,7 +75,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .go-login {
   text-align: right;
   font-size: 15px;

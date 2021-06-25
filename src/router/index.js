@@ -8,14 +8,15 @@ import User from '../pages/User.vue'
 import UserEdit from '../pages/UserEdit.vue'
 import MyFollow from '../pages/MyFollow.vue'
 import MyComment from '../pages/MyComment.vue'
+import MyStar from '../pages/MyStar.vue'
 
 Vue.use(VueRouter)
 
 // 解决vue 中导航重复点击报错冗余导航
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err)
-// }
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 // 所有的路由跳转都要经过导航守卫
 // 判断是否有token,如果有token说明是登陆过的,反之没有登录
@@ -55,11 +56,16 @@ const router = new VueRouter({
       path: '/mycomment',
       component: MyComment,
       name: 'mycomment'
+    },
+    {
+      path: '/mystar',
+      component: MyStar,
+      name: 'mystar'
     }
   ]
 })
 
-const authUrl = ['/user', '/useredit']
+const authUrl = ['/user', '/useredit', '/myfollow', '/mycomment', 'mystar']
 router.beforeEach(function(to, from, next) {
   const token = localStorage.getItem('token')
 

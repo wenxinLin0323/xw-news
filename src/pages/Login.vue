@@ -31,7 +31,7 @@
 // import axios from 'axios'
 export default {
   methods: {
-    login() {
+    async login() {
       // 发请求前先进行校验，校验失败就不发请求
       const result1 = this.$refs.username.validate(this.username)
       const result2 = this.$refs.password.validate(this.password)
@@ -43,27 +43,26 @@ export default {
       //   return
       // }
       // console.log('登陆成功')
-      this.$axios({
+      const res = await this.$axios({
         method: 'POST',
         url: '/login',
         data: {
           username: this.username,
           password: this.password
         }
-      }).then(res => {
-        // console.log(res.data)
-        const { statusCode, message, data } = res.data
-        if (statusCode === 200) {
-          this.$toast.success(message)
-          localStorage.setItem('token', data.token)
-          localStorage.setItem('user_id', data.user.id)
-
-          // 如果想直接跳转到用户页面，发送请求登录，登陆成功直接跳转到用户中心
-          this.$router.push('/user')
-        } else {
-          this.$toast.fail('用户名或密码错误')
-        }
       })
+      // console.log(res.data)
+      const { statusCode, message, data } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('user_id', data.user.id)
+
+        // 如果想直接跳转到用户页面，发送请求登录，登陆成功直接跳转到用户中心
+        this.$router.push('/user')
+      } else {
+        this.$toast.fail('用户名或密码错误')
+      }
     }
   },
 
@@ -81,7 +80,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .go-register {
   text-align: right;
   font-size: 15px;

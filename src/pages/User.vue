@@ -25,7 +25,11 @@
       @click="$router.push('/mycomment')"
       content="跟帖/回复"
     ></xw-navbar>
-    <xw-navbar title="我的收藏" content="文章视频"></xw-navbar>
+    <xw-navbar
+      title="我的收藏"
+      @click="$router.push('/mystar')"
+      content="文章视频"
+    ></xw-navbar>
     <xw-navbar
       title="设置"
       content
@@ -38,22 +42,18 @@
 <script>
 export default {
   methods: {
-    logout() {
-      this.$dialog
-        .confirm({
+    async logout() {
+      try {
+        await this.$dialog.confirm({
           title: '温馨提示',
           message: '你确定要退出吗'
         })
-        .then(() => {
-          // on confirm
-          localStorage.removeItem('token')
-          localStorage.removeItem('user_id')
-          this.$router.push('/login')
-          this.$toast('退出成功')
-        })
-        .catch(() => {
-          // on cancel
-        })
+        // on confirm
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
+        this.$router.push('/login')
+        this.$toast('退出成功')
+      } catch {}
     }
   },
   data() {
@@ -87,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .info {
   height: 100px;
   display: flex;
