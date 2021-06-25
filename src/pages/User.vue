@@ -11,12 +11,20 @@
           <span v-else class="iconfont iconxingbienv"></span>
           <span>{{ info.nickname }}</span>
         </div>
-        <div class="time">{{ info.create_date | date }}</div>
+        <div class="time">{{ info.create_date | date('YYYY-MM-DD') }}</div>
       </div>
       <div class="iconfont iconjiantou1"></div>
     </div>
-    <xw-navbar title="我的关注" content="关注的用户"></xw-navbar>
-    <xw-navbar title="我的跟帖" content="跟帖/回复"></xw-navbar>
+    <xw-navbar
+      title="我的关注"
+      @click="$router.push('/myfollow')"
+      content="关注的用户"
+    ></xw-navbar>
+    <xw-navbar
+      title="我的跟帖"
+      @click="$router.push('/mycomment')"
+      content="跟帖/回复"
+    ></xw-navbar>
     <xw-navbar title="我的收藏" content="文章视频"></xw-navbar>
     <xw-navbar
       title="设置"

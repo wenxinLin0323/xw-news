@@ -19,8 +19,8 @@ import XwNavbar from './components/XwNavbar.vue'
 
 // 定义时间过滤器
 import moment from 'moment'
-Vue.filter('date', function(input) {
-  return moment(input).format('YYYY-MM-DD')
+Vue.filter('date', function(input, format = 'YYYY-MM-DD') {
+  return moment(input).format(format)
 })
 
 // ----------------------导入vant-ui----------------

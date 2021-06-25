@@ -6,6 +6,8 @@ import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import User from '../pages/User.vue'
 import UserEdit from '../pages/UserEdit.vue'
+import MyFollow from '../pages/MyFollow.vue'
+import MyComment from '../pages/MyComment.vue'
 
 Vue.use(VueRouter)
 
@@ -43,6 +45,16 @@ const router = new VueRouter({
       path: '/useredit',
       component: UserEdit,
       name: 'useredit'
+    },
+    {
+      path: '/myfollow',
+      component: MyFollow,
+      name: 'myfollow'
+    },
+    {
+      path: '/mycomment',
+      component: MyComment,
+      name: 'mycomment'
     }
   ]
 })

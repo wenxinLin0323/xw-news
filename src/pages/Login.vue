@@ -50,22 +50,20 @@ export default {
           username: this.username,
           password: this.password
         }
-      })
-        .then(res => {
-          // console.log(res.data)
-          const { statusCode, message, data } = res.data
-          if (statusCode === 200) {
-            this.$toast.success(message)
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('user_id', data.user.id)
+      }).then(res => {
+        // console.log(res.data)
+        const { statusCode, message, data } = res.data
+        if (statusCode === 200) {
+          this.$toast.success(message)
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('user_id', data.user.id)
 
-            // 如果想直接跳转到用户页面，发送请求登录，登陆成功直接跳转到用户中心
-            this.$router.push('/user')
-          } else {
-            this.$toast.fail('用户名或密码错误')
-          }
-        })
-        .catch(err => err)
+          // 如果想直接跳转到用户页面，发送请求登录，登陆成功直接跳转到用户中心
+          this.$router.push('/user')
+        } else {
+          this.$toast.fail('用户名或密码错误')
+        }
+      })
     }
   },
 
